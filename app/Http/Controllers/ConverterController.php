@@ -10,13 +10,13 @@ class ConverterController extends Controller
     public function converter(Request $request)
     {
         $url = $request->url;
-//        return response()->json($url);
-
         $outputPath = storage_path('app/downloads/mp3s');
+        $programPath = config('converter.ytdlp');
         $pathToFile = $outputPath . '/%(title)s.%(ext)s';
 
+
         $command = [
-            '/home/mdyoung3/.local/bin/yt-dlp',
+            $programPath,
             '--extract-audio',
             '--audio-format', 'mp3',
             '--output', $pathToFile,
@@ -28,7 +28,7 @@ class ConverterController extends Controller
 
         return [
             'success' => $result->successful(),
-            'file_path' => $pathToFile,     // Template path
+            'file_path' => $pathToFile,
             'output' => $result->output(),
             'error' => $result->errorOutput(),
         ];

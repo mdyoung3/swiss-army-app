@@ -7,7 +7,7 @@
                 <div class="mb-6 apocalypse-alert p-4 rounded-md">
                     <h2 class="mb-2 text-lg font-semibold neon-red">INSTRUCTIONS:</h2>
                     <ul class="space-y-1 neon-green">
-                        <li>☣️ Enter URL being blocked</li>
+                        <li>Enter URL of video being converted</li>
                     </ul>
                 </div>
 
@@ -152,7 +152,7 @@ export default defineComponent({
 
                 console.log(response.data);
 
-                this.successMessage = response.data.message || 'URL has been stored.';
+                this.successMessage = response.data.message || 'The video has been successfully converted.';
                 this.formData.url = '';
             } catch (error: any) {
                 console.error('Error:', error);
