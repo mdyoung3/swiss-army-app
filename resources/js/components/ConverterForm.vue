@@ -43,7 +43,7 @@
                                 id="url"
                                 v-model="formData.url"
                                 type="text"
-                                placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                placeholder=""
                                 class="w-full rounded-md zombie-input px-3 py-2 shadow-sm focus:outline-none"
                                 :class="{ 'border-red-500 shadow-red-500/50': errors.url }"
                             />
@@ -122,16 +122,14 @@ export default defineComponent({
 
         validateForm(): boolean {
             this.errors = {};
-
             if (!this.formData.url.trim()) {
-                return true;
+                this.errors.url = 'Please enter a URL'; // The error message that will be displayed if the field is empty
+                return false; // Return false to indicate that the validation has failed
             }
-
             if (!this.validateUrl(this.formData.url)) {
                 this.errors.url = 'Please enter a valid URL (must include http:// or https://)';
                 return false;
             }
-
             return true;
         },
 
@@ -150,9 +148,9 @@ export default defineComponent({
                     url: this.formData.url,
                 });
 
-                console.log(response.data);
+                console.log(response.data.file_url);
 
-                this.successMessage = response.data.message || 'The video has been successfully converted.';
+                this.successMessage = `<a href="${response.data.download_url}" download>Download MP3</a>`;
                 this.formData.url = '';
             } catch (error: any) {
                 console.error('Error:', error);
