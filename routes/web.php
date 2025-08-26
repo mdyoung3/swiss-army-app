@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PiholeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -29,3 +30,19 @@ Route::prefix('api')->group(function () {
 
     Route::post('/converter', [\App\Http\Controllers\ConverterController::class, 'converter']);
 });
+
+Route::get('/download/mp3/{filename}', function ($filename) {
+    $disk = Storage::disk('mp3_downloads');
+
+    if (!$disk->exists($filename)) {
+        abort(404);
+    }
+
+    return response()->download(
+        $disk->path($filename),
+        $filename,
+        [
+            'Content-Type' => 'audio/mpeg',
+        ]
+    );
+})->name('mp3.download');
