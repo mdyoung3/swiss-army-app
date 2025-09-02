@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\PiholeUrl;
 use App\Models\BlockedUrl;
-use App\Models\DisabledTracked;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
@@ -36,9 +35,6 @@ class PiholeController extends Controller
     }
 
     public function disablePihole(Request $request) {
-//        self::sessionAndClickTracker($request);
-//        DisabledTracked::create([]);
-
         $response = Http::withoutVerifying()->withHeaders([
             "Content-Type" => "application/json"
         ])->withBody(json_encode([
@@ -107,42 +103,6 @@ class PiholeController extends Controller
         }
     }
 
-    public function index(): JsonResponse
-    {
-        try {
-            $urls = PiholeUrl::orderBy('created_at', 'desc')->get();
-
-            return response()->json([
-                'data' => $urls
-            ]);
-
-        } catch (\Exception $e) {
-            \Log::error('Error fetching URLs', ['error' => $e->getMessage()]);
-
-            return response()->json([
-                'message' => 'Failed to fetch URLs'
-            ], 500);
-        }
-    }
-
-    public function destroy(PiholeUrl $url): JsonResponse
-    {
-        try {
-            $url->delete();
-
-            return response()->json([
-                'message' => 'URL deleted successfully'
-            ]);
-
-        } catch (\Exception $e) {
-            \Log::error('Error deleting URL', ['error' => $e->getMessage()]);
-
-            return response()->json([
-                'message' => 'Failed to delete URL'
-            ], 500);
-        }
-    }
-
     public function storeBlockedUrl(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -178,42 +138,6 @@ class PiholeController extends Controller
 
             return response()->json([
                 'message' => 'An error occurred while blocking the URL'
-            ], 500);
-        }
-    }
-
-    public function getBlockedUrls(): JsonResponse
-    {
-        try {
-            $urls = BlockedUrl::orderBy('created_at', 'desc')->get();
-
-            return response()->json([
-                'data' => $urls
-            ]);
-
-        } catch (\Exception $e) {
-            \Log::error('Error fetching blocked URLs', ['error' => $e->getMessage()]);
-
-            return response()->json([
-                'message' => 'Failed to fetch blocked URLs'
-            ], 500);
-        }
-    }
-
-    public function destroyBlockedUrl(BlockedUrl $blockedUrl): JsonResponse
-    {
-        try {
-            $blockedUrl->delete();
-
-            return response()->json([
-                'message' => 'Blocked URL removed successfully'
-            ]);
-
-        } catch (\Exception $e) {
-            \Log::error('Error removing blocked URL', ['error' => $e->getMessage()]);
-
-            return response()->json([
-                'message' => 'Failed to remove blocked URL'
             ], 500);
         }
     }

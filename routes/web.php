@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PiholeController;
+use App\Http\Controllers\UrlListController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -20,14 +21,15 @@ Route::get('/converter', function () {
 Route::prefix('api')->group(function () {
     Route::post('/pihole/temporary-disable', [PiholeController::class, 'disablePihole']);
     Route::post('/pihole/add-url', [PiholeController::class, 'submit']);
-    Route::get('/urls', [PiholeController::class, 'index']);
-    Route::delete(  '/urls/{url}', [PiholeController::class, 'destroy']);
 
     // Blocked URLs endpoints
     Route::post('/blocked-urls', [PiholeController::class, 'storeBlockedUrl']);
-    Route::get('/blocked-urls', [PiholeController::class, 'getBlockedUrls']);
-    Route::delete('/blocked-urls/{blockedUrl}', [PiholeController::class, 'destroyBlockedUrl']);
+    Route::get('/urls', [PiholeController::class, 'index']);
+    Route::get('/blocked-urls', [UrlListController::class, 'getBlockedUrls']);
+    Route::delete(  '/urls/{url}', [UrlListController::class, 'destroy']);
+    Route::delete('/blocked-urls/{blockedUrl}', [UrlListController::class, 'destroyBlockedUrl']);
 
+    // Converter endpoints
     Route::post('/converter', [\App\Http\Controllers\ConverterController::class, 'converter']);
 });
 
