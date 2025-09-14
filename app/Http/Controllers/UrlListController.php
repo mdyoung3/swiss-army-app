@@ -9,9 +9,9 @@ class UrlListController extends Controller
 {
     public function getBlockedUrls(): JsonResponse
     {
-        $hi = 'mom';
         try {
             $urls = BlockedUrl::orderBy('created_at', 'desc')->get();
+            $all_urls = BlockedUrl::all()->url;
 
             return response()->json([
                 'data' => $urls
