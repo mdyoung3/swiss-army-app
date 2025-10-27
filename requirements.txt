@@ -1,0 +1,184 @@
+Building the frontend UI for a Laravel 12 + Vue 3 (Options API) app styled with Tailwind CSS and built with Vite. The backend is already implemented. Your job is to redesign the existing interface and add new pages, components, and a navigation layout based on the specifications below.
+
+This is a Pi-hole URL Manager application used for managing DNS and access control on a home network. The current UI is zombie-themed and needs to be replaced with a retro-futuristic terminal aesthetic. The new design should be professional, responsive, and accessible.
+
+General Design and Technical Requirements
+
+Use Vue 3 (Options API), not the Composition API or TypeScript.
+
+Use Tailwind CSS for styling.
+
+Maintain full WCAG 2.1 AA accessibility compliance.
+
+The design should be mobile-first, but also display well on desktop.
+
+Use a dark retro-terminal theme: matte black background, greenish glowing text, subtle shadows, smooth hover transitions, and monospace fonts.
+
+Theming Details
+
+Aesthetic: Retro-futuristic, inspired by CRT terminals or “old computer” green phosphor displays.
+
+Color Palette:
+
+Background: #0a0a0a
+
+Primary text: #00ff66
+
+Secondary text: #9ef2a2
+
+Accent: #14b866 (for interactive elements)
+
+Error/warning: soft neon red or amber
+
+Use subtle gradients, glows, and transitions to keep it polished.
+
+Font: Monospace (JetBrains Mono, Fira Code, or Source Code Pro)
+
+Accessibility:
+
+Maintain high contrast.
+
+Ensure all interactive elements have visible focus states.
+
+Support keyboard navigation and ARIA labeling where appropriate.
+
+App Structure
+
+Create or update the following Vue components/pages:
+
+1. Landing.vue
+
+A simple landing page that introduces the app and explains its purpose.
+This app is for personal or family use, designed to help manage networking and media tools hosted inside the home.
+
+Content:
+
+Headline: “Home Network Manager”
+
+Description paragraph explaining that this app integrates with Pi-hole and other tools to manage access, filter content, and monitor home network usage.
+
+A “Get Started” button linking to the Submit URL page.
+
+Design:
+
+Full-screen centered layout with large, glowing monospace text.
+
+Optional animated typing effect or subtle background glow.
+
+Use dark background with neon green text.
+
+2. Manager.vue (Submit URL Page)
+
+This page contains the form to submit URLs that temporarily disable Pi-hole DNS blocking.
+
+Layout:
+
+Title and short instruction text at the top.
+
+URL input field (full width on mobile, medium width on desktop).
+
+“Submit” button below.
+
+Functionality:
+
+Validate input as a proper URL.
+
+Show success, loading, and error messages inline.
+
+Messages should appear as terminal-like output text (green or red glow).
+
+3. UrlList.vue (Table of URLs)
+
+This page lists all URLs saved in the database.
+
+Layout:
+
+Table of URLs, with each row containing:
+
+The URL
+
+A trash icon button to delete it
+
+Add a drag-and-drop area for users to drop URLs that should be “blocked” instead of submitted.
+
+Design:
+
+Responsive table (scrollable on small screens).
+
+Subtle hover glow on table rows.
+
+Drag-and-drop zone visually distinct with dashed green border and glowing background on hover.
+
+4. ParentalControls.vue
+
+A new page that allows parents to block social media platforms.
+
+Layout:
+
+Title: “Parental Controls”
+
+Description: Short paragraph explaining that this feature temporarily blocks social media sites using Pi-hole or another backend API.
+
+A dropdown <select> menu listing:
+
+YouTube
+
+Instagram
+
+Facebook
+
+Snapchat
+
+Telegram
+
+A “Block” button below the dropdown.
+
+Functionality:
+
+On submit, show success or failure feedback (styled in terminal theme).
+
+All interactions should feel consistent with the rest of the UI.
+
+5. NavBar.vue or AppNav.vue
+
+A navigation component shared across all pages.
+
+Requirements:
+
+Include links for:
+
+Home (Landing)
+
+Submit URL
+
+URL List
+
+Parental Controls
+
+On mobile, convert to a hamburger or slide-out drawer.
+
+Keep navigation fixed at the top or side (depending on layout).
+
+Highlight the current page with a subtle neon glow or underline.
+
+Responsive Layout Guidelines
+
+Use Tailwind’s responsive grid and flex utilities.
+
+On mobile: vertical stacking, large tap targets, collapsible menus.
+
+On desktop: more horizontal space, balanced padding, readable spacing.
+
+Test for consistent rendering in both modes.
+
+Deliverables
+
+Updated Manager.vue and UrlList.vue with new UI and theme.
+
+New pages: Landing.vue and ParentalControls.vue.
+
+New shared navigation component (NavBar.vue or AppNav.vue).
+
+Tailwind configuration updates (custom color variables and focus styles).
+
+Accessibility-first styling (keyboard focus, ARIA labels, readable text).
