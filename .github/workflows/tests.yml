@@ -21,6 +21,21 @@ jobs:
           tools: composer:v2
           extensions: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
 
+      - name: Setup cache environment
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
+          key: extension-cache-v1
+
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.extcache.outputs.dir }}
+          key: ${{ steps.extcache.outputs.key }}
+          restore-keys: ${{ steps.extcache.outputs.key }}
+
       - name: Get Composer cache dir
         id: composer-cache-dir
         run: echo dir=$(composer config cache-files-dir) >> $GITHUB_OUTPUT
