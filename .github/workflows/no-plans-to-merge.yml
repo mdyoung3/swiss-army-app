@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   no-plans-to-merge:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == false
 
     runs-on: ubuntu-latest
     steps:

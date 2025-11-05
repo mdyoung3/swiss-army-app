@@ -10,10 +10,6 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
-    env:
-      PHP_VERSION: '8.4'
-      PHP_EXTENSIONS: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
