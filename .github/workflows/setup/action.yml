@@ -2,25 +2,39 @@ name: Setup
 
 description: Set up PHP and Composer
 
+inputs:
+  php-version:
+    description: The PHP Version(s)
+    required: true
+  php-extensions:
+    description: The PHP Extensions you want to install.
+    required: false
+    default: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
+
 runs:
   using: composite
   steps:
+    - name: Get PHP Extension cache dir
+      id: get-cache-hash
+      run: echo hash=$(echo $PHP_EXTENSIONS | md5sum | awk '{print $1}' ) >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ env.PHP_VERSION }}
+        php-version: ${{ inputs.php-version }}
         tools: composer:v2
-        extensions: ${{ env.PHP_EXTENSIONS }}
+        extensions: ${{ inputs.php-extensions }}
 
     - name: Setup cache environment
       id: extcache
       uses: shivammathur/cache-extensions@v1
       with:
-        php-version: ${{ env.PHP_VERSION }}
-        extensions: ${{ env.PHP_EXTENSIONS }}
-        key: extension-cache-v1
+        php-version: ${{ inputs.php-version }}
+        extensions: ${{ inputs.php-extensions }}
+        key: php-extensions-${{ steps.get-cache-hash.hash }}
 
-    - name: Cache extensions
+    - name: Cache PHP Extensions
       uses: actions/cache@v4
       with:
         path: ${{ steps.extcache.outputs.dir }}
