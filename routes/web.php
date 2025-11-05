@@ -39,7 +39,7 @@ Route::prefix('api')->group(function () {
     Route::post('/blocked-urls', [PiholeController::class, 'storeBlockedUrl']);
     Route::get('/urls', [PiholeController::class, 'index']);
     Route::get('/blocked-urls', [UrlListController::class, 'getBlockedUrls']);
-    Route::delete(  '/urls/{url}', [UrlListController::class, 'destroy']);
+    Route::delete('/urls/{url}', [UrlListController::class, 'destroy']);
     Route::delete('/blocked-urls/{blockedUrl}', [UrlListController::class, 'destroyBlockedUrl']);
 
     // Converter endpoints
@@ -49,7 +49,7 @@ Route::prefix('api')->group(function () {
 Route::get('/download/mp3/{filename}', function ($filename) {
     $disk = Storage::disk('mp3_downloads');
 
-    if (!$disk->exists($filename)) {
+    if (! $disk->exists($filename)) {
         abort(404);
     }
 
