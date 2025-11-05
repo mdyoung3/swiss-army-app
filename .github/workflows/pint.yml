@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -20,9 +22,17 @@ jobs:
           php-version: '8.4'
           tools: composer:v2
 
-      - Name: Install Laravel Pint
+      - name: Install Laravel Pint
         run: composer global require laravel/pint
 
-      - Name: Run Pint
-        run: pint --test
+      - name: Run Pint
+        run: pint
+
+      - name: Push Changes Back to Repo
+        run: |
+          git config user.name "gh-actions"
+          git config user.email "gh@example.com"
+          git add .
+          git commit -m "Laravel Pint"
+          git push
 
