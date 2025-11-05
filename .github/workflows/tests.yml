@@ -21,7 +21,7 @@ jobs:
           tools: composer:v2
 
       - name: Install Dependencies
-        run: composer install -q --no-interactions
+        run: composer install -q --no-interaction
 
       - name: Laravel Setup
         run: |
