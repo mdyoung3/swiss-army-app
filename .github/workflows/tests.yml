@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  pull_request
+
+permissions:
+  contents: write
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    env:
+      PHP_VERSION: '8.4'
+      PHP_EXTENSIONS: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/workflows/setup
+
+      - name: Install Dependencies
+        run: composer install -q --no-interaction
+
+      - name: Site Setup
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          yarn
+          yarn run build
+
+      - name: Run Tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ":memory:"
+        run: php artisan test --compact
