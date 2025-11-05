@@ -10,6 +10,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    env:
+      PHP_VERSION: '8.4'
+      PHP_EXTENSIONS: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,16 +20,16 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: ${{ env.PHP_VERSION }}
           tools: composer:v2
-          extensions: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
+          extensions: ${{ env.PHP_EXTENSIONS }}
 
       - name: Setup cache environment
         id: extcache
         uses: shivammathur/cache-extensions@v1
         with:
-          php-version: '8.4'
-          extensions: dom, curl, libxml, mbstring, zip, json, bcmath, tokenizer, ctype, openssl
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
           key: extension-cache-v1
 
       - name: Cache extensions
