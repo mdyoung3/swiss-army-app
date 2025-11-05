@@ -12,12 +12,12 @@ class ConverterController extends Controller
     public function converter(Request $request)
     {
         // Create a unique temp directory
-        $tempDir = 'temp/' . Str::uuid();
+        $tempDir = 'temp/'.Str::uuid();
         Storage::disk('mp3_downloads')->makeDirectory($tempDir);
 
         try {
             // Download to temp directory
-            $tempFileName = $tempDir . '/%(title)s.%(ext)s';
+            $tempFileName = $tempDir.'/%(title)s.%(ext)s';
             $outputPath = Storage::disk('mp3_downloads')->path($tempFileName);
 
             $result = $this->ytDlp($request, $outputPath);
@@ -27,7 +27,7 @@ class ConverterController extends Controller
                 $tempFiles = Storage::disk('mp3_downloads')->files($tempDir);
                 $tempFile = collect($tempFiles)->first();
 
-                if (!$tempFile) {
+                if (! $tempFile) {
                     throw new \Exception('No file was downloaded');
                 }
 
@@ -91,7 +91,7 @@ class ConverterController extends Controller
         // Filter out temp directories and find exact match
         $existingFiles = collect($existingFiles)
             ->filter(function ($file) {
-                return !str_starts_with($file, 'temp/');
+                return ! str_starts_with($file, 'temp/');
             });
 
         // Check for exact filename match
@@ -103,6 +103,7 @@ class ConverterController extends Controller
         $baseName = pathinfo($fileName, PATHINFO_FILENAME);
         $similarFile = $existingFiles->first(function ($file) use ($baseName) {
             $existingBaseName = pathinfo($file, PATHINFO_FILENAME);
+
             return $existingBaseName === $baseName;
         });
 
@@ -120,7 +121,7 @@ class ConverterController extends Controller
             '--audio-format', 'mp3',
             '--output', $outputPath,
             '--no-playlist',
-            $url
+            $url,
         ];
 
         return Process::timeout(1200)->run($command);
@@ -131,16 +132,16 @@ class ConverterController extends Controller
         $originalFileName = basename($tempFilePath);
         $fileNameWithNoHashes = preg_replace('/#\S+/', '', $originalFileName);
 
-        if (!str_ends_with($fileNameWithNoHashes, '.mp3')) {
+        if (! str_ends_with($fileNameWithNoHashes, '.mp3')) {
             $fileNameWithNoHashes .= '.mp3';
         }
 
-        $newTempPath = $tempDir . '/' . $fileNameWithNoHashes;
+        $newTempPath = $tempDir.'/'.$fileNameWithNoHashes;
 
         if (Storage::disk('mp3_downloads')->move($tempFilePath, $newTempPath)) {
             return $newTempPath;
         } else {
-            throw new \Exception("Failed to rename file");
+            throw new \Exception('Failed to rename file');
         }
     }
 }
