@@ -7,15 +7,28 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('PiHoleManagementHub');
+    return Inertia::render('Landing');
+});
+
+Route::get('/manager', function () {
+    return Inertia::render('Manager');
 });
 
 Route::get('/urllist', function () {
     return Inertia::render('UrlList');
 });
 
+Route::get('/parental-controls', function () {
+    return Inertia::render('ParentalControls');
+});
+
 Route::get('/converter', function () {
     return Inertia::render('Converter');
+});
+
+// Keep old route for backward compatibility
+Route::get('/pihole', function () {
+    return redirect('/manager');
 });
 
 Route::prefix('api')->group(function () {

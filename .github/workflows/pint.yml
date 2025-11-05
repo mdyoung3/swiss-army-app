@@ -1,0 +1,28 @@
+name: pinter
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  pint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: 'composer:v2'
+
+      - Name: Install Laravel Pint
+        run: composer global require laravel/pint
+
+      - Name: Run Pint
+        run: pint --test
+
