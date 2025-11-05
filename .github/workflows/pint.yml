@@ -26,13 +26,13 @@ jobs:
         run: composer global require laravel/pint
 
       - name: Run Pint
-        run: pint 
+        run: pint
 
       - name: Push Changes Back to Repo
         run: |
           git config user.name "gh-actions"
           git config user.email "gh@example.com"
           git add .
-          git commit -n "Laravel Pint"
+          git commit -m "Laravel Pint"
           git push
 
