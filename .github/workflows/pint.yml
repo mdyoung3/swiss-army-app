@@ -20,9 +20,9 @@ jobs:
           php-version: '8.4'
           tools: composer:v2
 
-      - Name: Install Laravel Pint
+      - name: Install Laravel Pint
         run: composer global require laravel/pint
 
-      - Name: Run Pint
+      - name: Run Pint
         run: pint --test
 
