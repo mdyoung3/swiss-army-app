@@ -16,8 +16,6 @@ jobs:
 
       - name: Setup
         uses: ./.github/workflows/setup
-        with:
-          php-version: 8.4
 
       - name: Install Dependencies
         run: composer install -q --no-interaction
