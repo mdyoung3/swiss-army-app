@@ -26,3 +26,11 @@ jobs:
       - name: Run Pint
         run: pint --test
 
+      - name: Push Changes Back to Repo
+        run: |
+          git config user.name "gh-actions"
+          git config user.email "dummy@gmail.com"
+          git add .
+          git commit -n "Laravel Pint"
+          git push
+
