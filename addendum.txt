@@ -1,0 +1,167 @@
+# UI / UX Addendum — Retro Sci‑Fi Visual Refresh
+
+This document is an **addendum** to the existing functional requirements. All previously defined functionality, architecture, routes, components, and behaviors **remain unchanged**. This addendum introduces **visual, interaction,’ and presentation requirements only**, with the goal of delivering a more professional, cohesive, and stylized interface.
+
+---
+
+## Design Goal
+
+Create a **professional but stylized interface** inspired by **1970s science‑fiction computer terminals**:
+
+* Predominantly **black background**
+* **Neon green** as the primary accent and text color
+* Subtle glow effects reminiscent of CRT displays
+* Minimalist, utilitarian layout
+* Mobile‑first, responsive on desktop
+
+The design should feel intentional and polished — **not playful, gimmicky, or overly decorative**.
+
+---
+
+## Color Palette
+
+**Primary Colors**
+
+* Background: Near‑black (`#050505` or similar)
+* Primary Text / Accent: Neon green (`#39ff14` or slightly muted variant)
+* Secondary Text: Muted green / gray‑green (`#7aff7a`, `#9fbf9f`)
+
+**Status Colors**
+
+* Success: Soft neon green glow
+* Error: Muted red (`#ff4d4d`) — no bright primaries
+* Disabled / Loading: Dimmed green with reduced opacity
+
+Avoid white backgrounds entirely.
+
+---
+
+## Typography
+
+* Sans‑serif with a **technical / terminal feel**
+* Acceptable examples:
+
+  * `JetBrains Mono`
+  * `IBM Plex Mono`
+  * `Source Code Pro`
+
+Typography rules:
+
+* Body text slightly smaller than default Tailwind base
+* Increased letter‑spacing for headers
+* Use font‑weight (not color) for hierarchy where possible
+
+---
+
+## Layout & Composition
+
+### General
+
+* Centered content column with max width on desktop
+* Generous vertical spacing
+* Clear separation between title, instructions, and actions
+* No card overload — use spacing, borders, and subtle glows instead
+
+### Page Titles
+
+* Uppercase or small‑caps styling
+* Slight neon glow effect
+* Positioned consistently across pages
+
+---
+
+## Component Styling
+
+### Input Fields
+
+* Black background
+* Neon green text
+* Thin green border
+* Subtle glow on focus
+* No rounded pill styles — slight rounding only
+
+### Buttons
+
+* Black background with green border
+* Green text by default
+* On hover:
+
+  * Inverted contrast (green background, black text)
+  * Soft glow
+
+### Tables (URL List)
+
+* No heavy grid lines
+* Subtle row separators
+* Alternating row brightness using opacity
+* Trash icon should:
+
+  * Be minimal
+  * Glow on hover
+  * Clearly indicate destructive action without being alarming
+
+---
+
+## Motion & Interaction
+
+* Minimal transitions (100–200ms)
+* Fade‑in for page load
+* Subtle hover transitions only
+* No bouncing or playful animations
+
+Optional:
+
+* Very light scan‑line or noise texture (CSS only, optional)
+
+---
+
+## Feedback States
+
+* Loading states should use:
+
+  * Text indicators (e.g., `PROCESSING…`)
+  * Optional subtle animated ellipsis
+
+* Errors should:
+
+  * Be clearly readable
+  * Use muted red text
+  * Avoid popups or modals unless necessary
+
+---
+
+## Tailwind Configuration Guidance
+
+The design may require:
+
+* Custom color tokens in `tailwind.config.js`
+* Extended box‑shadow utilities for glow effects
+* Custom font family configuration
+
+No external UI frameworks should be introduced.
+
+---
+
+## Accessibility
+
+* Maintain sufficient contrast despite neon styling
+* Ensure readable font sizes on mobile
+* Keyboard‑accessible controls
+* Focus states must be visible and intentional
+
+---
+
+## Non‑Goals
+
+This addendum does **not** request:
+
+* Changes to backend logic
+* New features or workflows
+* Additional pages
+* Gamification or decorative graphics
+
+The goal is a **visual facelift only**, aligned with a serious utility tool presented in a distinctive retro‑futuristic style.
+
+---
+
+**This document should be treated as a required visual specification alongside the original functional requirements.**

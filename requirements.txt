@@ -1,4 +1,4 @@
- ### ✅ Overview
+ ###  Overview
 
 I want you to build an mobile first app (but also desktop) that's basically a form. Please build the main form in pages/Manager.vue and the page with the table in pages/UrlList.vue This app is a Pi-hole URL Manager. Users can submit a URL via the form, which is:
 
@@ -9,7 +9,7 @@ There is also a separate view where users can see all submitted URLs and delete 
 
 ---
 
-### ✅ Page 1: Form Page
+###  Page 1: Form Page
 
 **Layout:**
 
@@ -32,7 +32,7 @@ There is also a separate view where users can see all submitted URLs and delete 
 
 ---
 
-### ✅ Page 2: URL List Page
+###  Page 2: URL List Page
 
 **Layout:**
 
@@ -51,7 +51,7 @@ There is also a separate view where users can see all submitted URLs and delete 
 
 ---
 
-### ✅ Backend Notes (Laravel 12)
+###  Backend Notes (Laravel 12)
 
 * Use **SQLite** database with a simple table:
 
@@ -80,7 +80,7 @@ There is also a separate view where users can see all submitted URLs and delete 
 
 ---
 
-### ✅ Frontend Notes (Vue.js 3, Options API)
+###  Frontend Notes (Vue.js 3, Options API)
 
 * Use the Options API (`data`, `methods`, `mounted`, etc.)
 
@@ -95,7 +95,7 @@ There is also a separate view where users can see all submitted URLs and delete 
 
 ---
 
-### ✅ Tech Stack
+###  Tech Stack
 
 * Laravel 12
 * Vue 3 (Options API)
@@ -106,7 +106,7 @@ There is also a separate view where users can see all submitted URLs and delete 
 
 ---
 
-### ✅ Security Considerations
+###  Security Considerations
 
 * Input validation (both client-side and server-side)
 * CSRF protection
@@ -130,3 +130,4 @@ There is also a separate view where users can see all submitted URLs and delete 
   * Axios setup
   * Basic error handling
   * Styling with Tailwind (basic, not fancy)
+
