@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import DragDropUrlZone from '../components/DragDropUrlZone.vue';
 import UrlListComponent from '../components/UrlList.vue';
 </script>
 
@@ -12,7 +11,6 @@ import UrlListComponent from '../components/UrlList.vue';
 
     <div class="container mx-auto px-4 py-8">
         <div class="mx-auto max-w-6xl">
-            <DragDropUrlZone />
             <UrlListComponent />
         </div>
     </div>
