@@ -1,167 +1,134 @@
-# UI / UX Addendum — Retro Sci‑Fi Visual Refresh
+# Design-Only Redesign Requirements
 
-This document is an **addendum** to the existing functional requirements. All previously defined functionality, architecture, routes, components, and behaviors **remain unchanged**. This addendum introduces **visual, interaction,’ and presentation requirements only**, with the goal of delivering a more professional, cohesive, and stylized interface.
+## Purpose
 
----
+This requirements file is intended to be **consumed by a local CLI-based tool** to guide a **visual redesign only** of the existing application.
 
-## Design Goal
+**No functional changes are permitted.**
 
-Create a **professional but stylized interface** inspired by **1970s science‑fiction computer terminals**:
-
-* Predominantly **black background**
-* **Neon green** as the primary accent and text color
-* Subtle glow effects reminiscent of CRT displays
-* Minimalist, utilitarian layout
-* Mobile‑first, responsive on desktop
-
-The design should feel intentional and polished — **not playful, gimmicky, or overly decorative**.
+The tool must treat all existing behavior, logic, data flow, routes, APIs, and integrations as **immutable**.
 
 ---
 
-## Color Palette
+## Project Context
 
-**Primary Colors**
+* Project root: `/var/www/html`
+* An existing requirements file already defines application functionality
+* The current UI uses a **zombie-themed design**, which is to be replaced
 
-* Background: Near‑black (`#050505` or similar)
-* Primary Text / Accent: Neon green (`#39ff14` or slightly muted variant)
-* Secondary Text: Muted green / gray‑green (`#7aff7a`, `#9fbf9f`)
-
-**Status Colors**
-
-* Success: Soft neon green glow
-* Error: Muted red (`#ff4d4d`) — no bright primaries
-* Disabled / Loading: Dimmed green with reduced opacity
-
-Avoid white backgrounds entirely.
+This document **supplements** existing requirements and applies **only to look-and-feel**.
 
 ---
 
-## Typography
+## Scope Constraints (Hard Rules)
 
-* Sans‑serif with a **technical / terminal feel**
-* Acceptable examples:
+The redesign MUST:
 
-  * `JetBrains Mono`
-  * `IBM Plex Mono`
-  * `Source Code Pro`
+* Preserve all existing functionality
+* Preserve component structure and page layout hierarchy
+* Preserve routes, API calls, and data models
+* Preserve form fields, tables, and interactions
 
-Typography rules:
+The redesign MUST NOT:
 
-* Body text slightly smaller than default Tailwind base
-* Increased letter‑spacing for headers
-* Use font‑weight (not color) for hierarchy where possible
+* Add new features
+* Remove features
+* Rename routes or components
+* Change validation, submission, or data handling logic
+* Modify backend or frontend business logic
 
----
-
-## Layout & Composition
-
-### General
-
-* Centered content column with max width on desktop
-* Generous vertical spacing
-* Clear separation between title, instructions, and actions
-* No card overload — use spacing, borders, and subtle glows instead
-
-### Page Titles
-
-* Uppercase or small‑caps styling
-* Slight neon glow effect
-* Positioned consistently across pages
+If a change is not purely visual, it is **out of scope**.
 
 ---
 
-## Component Styling
+## Redesign Objective
 
-### Input Fields
+Replace the current zombie-themed UI with a **clean, professional design** suitable for client-facing demonstrations.
 
-* Black background
-* Neon green text
-* Thin green border
-* Subtle glow on focus
-* No rounded pill styles — slight rounding only
+The visual style should communicate:
 
-### Buttons
-
-* Black background with green border
-* Green text by default
-* On hover:
-
-  * Inverted contrast (green background, black text)
-  * Soft glow
-
-### Tables (URL List)
-
-* No heavy grid lines
-* Subtle row separators
-* Alternating row brightness using opacity
-* Trash icon should:
-
-  * Be minimal
-  * Glow on hover
-  * Clearly indicate destructive action without being alarming
+* Technical competence
+* Reliability
+* Intentional design
 
 ---
 
-## Motion & Interaction
+## Visual Theme Requirements
 
-* Minimal transitions (100–200ms)
-* Fade‑in for page load
-* Subtle hover transitions only
-* No bouncing or playful animations
+### Color Scheme
 
-Optional:
+* Primary background color: **Black** or near-black
+* Primary text color: **Green** (readable, not fluorescent)
+* Secondary text: Muted green or green-gray variants
+* Accent usage should be minimal and consistent
 
-* Very light scan‑line or noise texture (CSS only, optional)
-
----
-
-## Feedback States
-
-* Loading states should use:
-
-  * Text indicators (e.g., `PROCESSING…`)
-  * Optional subtle animated ellipsis
-
-* Errors should:
-
-  * Be clearly readable
-  * Use muted red text
-  * Avoid popups or modals unless necessary
+White backgrounds should not be used.
 
 ---
 
-## Tailwind Configuration Guidance
+### Typography
 
-The design may require:
-
-* Custom color tokens in `tailwind.config.js`
-* Extended box‑shadow utilities for glow effects
-* Custom font family configuration
-
-No external UI frameworks should be introduced.
+* Use a clean, modern, professional typeface
+* Monospace or technical-feeling fonts are acceptable but not required
+* Typography should emphasize clarity and hierarchy
+  n* Avoid novelty or horror-themed fonts
 
 ---
 
-## Accessibility
+### Styling Tone
 
-* Maintain sufficient contrast despite neon styling
-* Ensure readable font sizes on mobile
-* Keyboard‑accessible controls
-* Focus states must be visible and intentional
+* Minimalist
+* Professional
+* Purpose-driven
 
----
+Avoid:
 
-## Non‑Goals
-
-This addendum does **not** request:
-
-* Changes to backend logic
-* New features or workflows
-* Additional pages
-* Gamification or decorative graphics
-
-The goal is a **visual facelift only**, aligned with a serious utility tool presented in a distinctive retro‑futuristic style.
+* Cartoonish visuals
+* Horror motifs
+* Decorative imagery unrelated to function
+* Excessive animations
 
 ---
 
-**This document should be treated as a required visual specification alongside the original functional requirements.**
+## Component Styling Guidance
+
+The CLI tool may adjust **visual styling only** for:
+
+* Page backgrounds
+* Text colors
+* Font families and sizes
+* Spacing and alignment
+* Borders, shadows, and hover states
+
+All components must remain functionally identical.
+
+---
+
+## Accessibility Considerations
+
+* Maintain sufficient contrast between text and background
+* Ensure readability on mobile and desktop
+* Preserve visible focus states for interactive elements
+
+---
+
+## Success Criteria
+
+The redesign is considered successful if:
+
+* The application looks professional and client-ready
+* The black background / green text theme is consistently applied
+* All existing functionality works exactly as before
+* No functional regressions are introduced
+
+---
+
+## Interpretation Rules for CLI Tool
+
+When ambiguity exists:
+
+* Prefer **no change** over speculative change
+* Prefer conservative, minimal styling updates
+* Never infer new features or interactions
+
+This document should be treated as **design guidance only**, not a functional specification.

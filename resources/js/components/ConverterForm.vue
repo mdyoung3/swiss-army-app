@@ -2,53 +2,61 @@
     <div class="pihole-manager">
         <div class="container mx-auto px-4 py-8">
             <div class="mx-auto max-w-2xl">
-                <h1 class="mb-4 text-3xl font-bold neon-red neon-text">Convert Video to MP3</h1>
+                <h1 class="mb-4 text-3xl font-bold text-primary-green">Video to MP3 Converter</h1>
 
-                <div class="mb-6 apocalypse-alert p-4 rounded-md">
-                    <h2 class="mb-2 text-lg font-semibold neon-red">INSTRUCTIONS:</h2>
-                    <ul class="space-y-1 neon-green">
-                        <li>Enter URL of video being converted</li>
+                <div class="mb-6 pro-alert-info p-4">
+                    <h2 class="mb-2 text-lg font-semibold text-primary-green">Instructions</h2>
+                    <ul class="space-y-1 text-muted-green text-sm">
+                        <li>Enter the URL of the video you want to convert</li>
                     </ul>
                 </div>
 
-                <div class="rounded-lg zombie-card p-6 shadow-md mb-6">
+                <div class="pro-card p-6 mb-6">
                     <!-- Success Message with Download Link -->
-                    <div v-if="successMessage" class="mt-4 rounded-md survivor-success p-4 mb-6">
+                    <div v-if="successMessage" class="mt-4 pro-alert-success p-4 mb-6">
                         <div class="flex">
                             <div class="flex-shrink-0">
-                                <span class="text-2xl neon-green">✅</span>
+                                <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
                             </div>
                             <div class="ml-3 flex-1">
-                                <p class="text-sm neon-green font-medium mb-2">🎯 Conversion completed!</p>
+                                <p class="text-sm text-primary-green font-medium mb-2">Conversion completed!</p>
                                 <div v-if="downloadData" class="space-y-2">
-                                    <p class="text-xs neon-green">File: {{ downloadData.file_name }}</p>
-                                    <p class="text-xs neon-green">Size: {{ formatFileSize(downloadData.file_size) }}</p>
+                                    <p class="text-xs text-muted-green">File: {{ downloadData.file_name }}</p>
+                                    <p class="text-xs text-muted-green">Size: {{ formatFileSize(downloadData.file_size) }}</p>
                                     <a
                                         :href="downloadData.file_url"
                                         download
-                                        class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                                        class="inline-block pro-button-primary px-4 py-2 text-sm font-medium"
                                     >
-                                        📥 Download MP3
+                                        Download MP3
                                     </a>
                                 </div>
                             </div>
-                            <button @click="closeSuccess" class="ml-auto cursor-pointer">
-                                <span class="text-2xl neon-green">×</span>
+                            <button @click="closeSuccess" class="ml-auto cursor-pointer text-primary-green hover:text-bright-green">
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
                             </button>
                         </div>
                     </div>
 
                     <!-- Error Message -->
-                    <div v-if="errorMessage" class="mt-4 rounded-md apocalypse-alert p-4 mb-6">
+                    <div v-if="errorMessage" class="mt-4 pro-alert-error p-4 mb-6">
                         <div class="flex">
                             <div class="flex-shrink-0">
-                                <span class="text-2xl neon-red">💀</span>
+                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
                             </div>
-                            <div class="ml-3">
-                                <p class="text-sm neon-red font-medium">🚨 {{ errorMessage }}</p>
+                            <div class="ml-3 flex-1">
+                                <p class="text-sm text-red-400 font-medium">{{ errorMessage }}</p>
                             </div>
-                            <button @click="closeError" class="ml-auto cursor-pointer">
-                                <span class="text-2xl neon-red">×</span>
+                            <button @click="closeError" class="ml-auto cursor-pointer text-red-400 hover:text-red-300">
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -56,16 +64,16 @@
                     <!-- Form -->
                     <form @submit.prevent="submitForm" class="">
                         <div class="mb-6">
-                            <label for="url" class="mb-2 block text-md font-medium neon-green">Enter video URL to convert:</label>
+                            <label for="url" class="mb-2 block text-md font-medium text-primary-green">Video URL</label>
                             <input
                                 id="url"
                                 v-model="formData.url"
                                 type="text"
                                 placeholder="https://www.youtube.com/watch?v=..."
-                                class="w-full rounded-md zombie-input px-3 py-2 shadow-sm focus:outline-none"
-                                :class="{ 'border-red-500 shadow-red-500/50': errors.url }"
+                                class="w-full pro-input px-3 py-2"
+                                :class="{ 'border-red-500': errors.url }"
                             />
-                            <p v-if="errors.url" class="mt-1 text-sm neon-red">
+                            <p v-if="errors.url" class="mt-1 text-sm text-red-400">
                                 {{ errors.url }}
                             </p>
                         </div>
@@ -73,11 +81,11 @@
                         <button
                             type="submit"
                             :disabled="isSubmitLoading"
-                            class="cursor-pointer w-full rounded-md zombie-button px-4 py-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            class="cursor-pointer w-full pro-button-primary px-4 py-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             <span v-if="isSubmitLoading" class="flex items-center justify-center">
                                 <svg
-                                    class="mr-3 -ml-1 h-5 w-5 animate-spin text-white"
+                                    class="mr-3 -ml-1 h-5 w-5 animate-spin"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
@@ -91,7 +99,7 @@
                                 </svg>
                                 Converting...
                             </span>
-                            <span v-else>CONVERT TO MP3</span>
+                            <span v-else>Convert to MP3</span>
                         </button>
                     </form>
                 </div>
@@ -225,21 +233,5 @@ export default defineComponent({
 <style scoped>
 .container {
     max-width: 1200px;
-}
-
-/* Additional styles for better download button appearance */
-a.download-button {
-    display: inline-block;
-    background-color: #16a34a;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-a.download-button:hover {
-    background-color: #15803d;
 }
 </style>

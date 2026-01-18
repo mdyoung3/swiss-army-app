@@ -1,8 +1,8 @@
 <template>
     <div class="drag-drop-zone">
-        <div class="mb-6 rounded-lg bg-white p-6 shadow-md">
-            <h2 class="mb-4 text-xl font-semibold text-gray-800">Block URLs</h2>
-            <p class="mb-4 text-gray-600">Drag and drop URLs here to block them from being submitted</p>
+        <div class="mb-6 pro-card p-6">
+            <h2 class="mb-4 text-xl font-semibold text-primary-green">Block URLs</h2>
+            <p class="mb-4 text-muted-green">Drag and drop URLs here to block them from being submitted</p>
 
             <div
                 ref="dropZone"
@@ -11,12 +11,12 @@
                 @dragenter="handleDragEnter"
                 @dragleave="handleDragLeave"
                 :class="[
-                    'rounded-lg border-2 border-dashed p-8 text-center transition-all duration-200',
-                    isDragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-gray-50',
+                    'p-8 text-center transition-all duration-200',
+                    isDragOver ? 'pro-dropzone-active' : 'pro-dropzone',
                 ]"
             >
                 <div class="flex flex-col items-center justify-center">
-                    <svg class="mb-4 h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="mb-4 h-12 w-12 text-muted-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -24,10 +24,10 @@
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                     </svg>
-                    <p class="mb-2 text-lg font-medium text-gray-700">
+                    <p class="mb-2 text-lg font-medium text-primary-green">
                         {{ isDragOver ? 'Drop URL here' : 'Drag URL here to block' }}
                     </p>
-                    <p class="text-sm text-gray-500">Or paste a URL manually below</p>
+                    <p class="text-sm text-muted-green">Or paste a URL manually below</p>
                 </div>
             </div>
 
@@ -38,13 +38,13 @@
                         v-model="manualUrl"
                         type="text"
                         placeholder="https://example.com"
-                        class="flex-1 rounded-l-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                        class="flex-1 rounded-l-md pro-input px-3 py-2"
                         @keyup.enter="addManualUrl"
                     />
                     <button
                         @click="addManualUrl"
                         :disabled="isLoading || !manualUrl.trim()"
-                        class="rounded-r-md bg-red-600 px-4 py-2 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                        class="rounded-l-none pro-button-danger px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         Block URL
                     </button>
@@ -53,7 +53,7 @@
         </div>
 
         <!-- Success/Error Messages -->
-        <div v-if="successMessage" class="mb-4 rounded-md border border-green-200 bg-green-50 p-4">
+        <div v-if="successMessage" class="mb-4 pro-alert-success p-4">
             <div class="flex">
                 <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -65,12 +65,12 @@
                     </svg>
                 </div>
                 <div class="ml-3">
-                    <p class="text-sm text-green-700">{{ successMessage }}</p>
+                    <p class="text-sm text-primary-green">{{ successMessage }}</p>
                 </div>
             </div>
         </div>
 
-        <div v-if="errorMessage" class="mb-4 rounded-md border border-red-200 bg-red-50 p-4">
+        <div v-if="errorMessage" class="mb-4 pro-alert-error p-4">
             <div class="flex">
                 <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -82,26 +82,26 @@
                     </svg>
                 </div>
                 <div class="ml-3">
-                    <p class="text-sm text-red-700">{{ errorMessage }}</p>
+                    <p class="text-sm text-red-400">{{ errorMessage }}</p>
                 </div>
             </div>
         </div>
 
         <!-- Blocked URLs List -->
-        <div v-if="blockedUrls.length > 0" class="overflow-hidden rounded-lg bg-white shadow-md">
-            <div class="border-b border-gray-200 px-6 py-4">
-                <h3 class="text-lg font-medium text-gray-900">Blocked URLs</h3>
+        <div v-if="blockedUrls.length > 0" class="pro-table overflow-hidden">
+            <div class="pro-table-header px-6 py-4">
+                <h3 class="text-lg font-medium text-primary-green">Blocked URLs</h3>
             </div>
-            <ul class="divide-y divide-gray-200">
-                <li v-for="blockedUrl in blockedUrls" :key="blockedUrl.id" class="flex items-center justify-between px-6 py-4">
+            <ul>
+                <li v-for="blockedUrl in blockedUrls" :key="blockedUrl.id" class="flex items-center justify-between px-6 py-4 pro-table-row">
                     <div class="flex-1">
-                        <p class="text-sm text-gray-900">{{ blockedUrl.url }}</p>
-                        <p class="text-xs text-gray-500">Added {{ formatDate(blockedUrl.created_at) }}</p>
+                        <p class="text-sm text-primary-green">{{ blockedUrl.url }}</p>
+                        <p class="text-xs text-muted-green">Added {{ formatDate(blockedUrl.created_at) }}</p>
                     </div>
                     <button
                         @click="removeBlockedUrl(blockedUrl.id)"
                         :disabled="isDeletingId === blockedUrl.id"
-                        class="ml-4 rounded-md p-1 text-red-600 hover:bg-red-50 hover:text-red-900 focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:outline-none"
+                        class="ml-4 rounded-md p-1 text-red-400 hover:bg-red-900/20 hover:text-red-300 focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:ring-offset-transparent focus:outline-none"
                     >
                         <svg
                             v-if="isDeletingId === blockedUrl.id"
