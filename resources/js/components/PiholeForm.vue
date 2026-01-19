@@ -1,8 +1,16 @@
 <template>
     <div class="pihole-manager">
         <div class="container mx-auto px-4 py-8">
-            <div class="mx-auto max-w-2xl">
+            <div class="mx-auto">
                 <h1 class="mb-4 text-3xl font-bold text-primary-green">Pi-hole URL Manager</h1>
+            </div>
+            <div class="w-1/5 float-left ">
+                <ul>
+                    <li><a href="/converter">Converter</a></li>
+                    <li><a href="/urllist">UrlList</a></li>
+                </ul>
+            </div>
+            <div class="w-4/5 float-left">
 
                 <div class="mb-6 pro-alert-info p-4">
                     <h2 class="mb-2 text-lg font-semibold text-primary-green">Instructions</h2>
@@ -120,6 +128,9 @@
 <script lang="ts">
 import axios from 'axios';
 import { defineComponent } from 'vue';
+import { Sidebar } from '@/components/ui/sidebar';
+import UrlHistory from '@/components/UrlList.vue';
+import UrlList from '@/pages/UrlList.vue';
 
 interface FormData {
     url: string;
@@ -131,6 +142,7 @@ interface Errors {
 
 export default defineComponent({
     name: 'PiholeForm',
+    components: { UrlList, UrlHistory, Sidebar },
     data() {
         return {
             formData: {
